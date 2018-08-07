@@ -51,8 +51,10 @@ module.exports = {
     updateOne:  (req,res)=>{ 
         Transaction.findOne({_id:req.params.id})
             .then(transaction=>{ 
-                
-                transaction.update(req.body).then(()=>{
+                transaction.update({
+                    in_date: transaction.in_date,
+                    due_date: transaction.due_date
+                }).then(()=>{
                     res.status(201).json({
                         msg:"success"
                     })

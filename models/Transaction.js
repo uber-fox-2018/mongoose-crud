@@ -30,24 +30,10 @@ const transactionSchema = new mongoose.Schema({
 }, {timestamps:true});
 
 transactionSchema.pre('update', function(next){
-    let updatedItem = this.getUpdate()
-
-    this.find({out_date:})
-    .then((obj)=>{
-        console.log("ini",obj)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
-    console.log("---->",updatedItem)
-
+    let updatedItem = this.getUpdate()    
     if(updatedItem.in_date){
-        console.log("====", getFine(this.due_date, updatedItem.in_date))
-        console.log("===>>>>masuk hook!! muawaahahhahahah")
+        this.update({}, {fine:getFine(updatedItem.due_date, updatedItem.in_date)})
         
-        this.update({}, {fine:getFine(updatedItem.in_date)})
-        
-
     } 
     next()
 });
