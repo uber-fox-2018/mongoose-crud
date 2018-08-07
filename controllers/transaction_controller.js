@@ -51,26 +51,23 @@ module.exports = {
             });
     },
 
-    // updateData: (req, res) => {
-    //     console.log(req.body.booklist);
-    //     console.log(req.params.id);
-        
-    //     Transaction.updateOne({ _id : req.params.id},{
-    //         $push : {booklist : req.body.booklist}
-    //     })
-    //     .then((updated) => {
-    //         res.status(200).json({
-    //             msg: 'data updated',
-    //             updated
-    //         })
-    //     })
-    //     .catch((err) => {
-    //         res.status(200).json({
-    //             msg: 'update data failed',
-    //             err: err.message
-    //         })
-    //     });
-    // },
+    updateData: (req, res) => {
+        Transaction.updateOne({ _id : req.params.id},{
+            $push : {booklist : req.body.booklist}
+        })
+        .then((updated) => {
+            res.status(200).json({
+                msg: 'data updated',
+                updated
+            })
+        })
+        .catch((err) => {
+            res.status(200).json({
+                msg: 'update data failed',
+                err: err.message
+            })
+        });
+    },
 
     removeData: (req, res) => {
         Transaction.deleteOne({

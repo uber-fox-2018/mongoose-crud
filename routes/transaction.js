@@ -1,12 +1,12 @@
 const router = require('express').Router()
 const { readData,
         insertData,
-      //   updateData,
+        updateData,
         removeData } = require('../controllers/transaction_controller');
 
 router.get('/',readData)
       .post('/',insertData)
-      // .put('/:id',updateData)
+      .put('/:id',updateData)
       .delete('/:id',removeData)
 
 

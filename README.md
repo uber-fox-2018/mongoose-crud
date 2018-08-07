@@ -14,5 +14,6 @@ _/customers_ | POST | Create a new customer
 _/customers/:id_ | PUT | Update a customer with new info
 _/customers/:id_ | DELETE | Delete a customer
 _/transactions_ | GET | Get all transaction info
-_/transactions_ | POST | Create a new customer info
-_/transactions/:id_ | DELETE | Delete a customer 
+_/transactions_ | POST | Create a new transaction info
+_/transactions/:id_ | UPDATE | Update a transaction with new info
+_/transactions/:id_ | DELETE | Delete a transaction 
