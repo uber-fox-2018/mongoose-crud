@@ -1,9 +1,9 @@
 const router = require('express').Router()
-const { readTransaction, removeTransaction, addTransaction } = require('../controllers/transaction-controller')
+const { readTransaction, removeTransaction, addTransaction, updateTransaction } = require('../controllers/transaction-controller')
 
 router.get('/', readTransaction)
-router.post('/add', addTransaction)
+router.post('/', addTransaction)
 router.delete('/:id', removeTransaction)
-// router.put('/:id', updateCustomer)
+router.put('/:id', updateTransaction)
 
 module.exports = router

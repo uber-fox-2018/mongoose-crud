@@ -56,8 +56,8 @@ const removeTransaction = (req,res) => {
 }
 
 const updateTransaction = (req,res) => {
-    const { member, days, out_date, in_date, fine, booklist } = req.body
-    Transaction.findOneAndUpdate({_id: ObjectId(req.params.id)}, {$set:{member:member, days: days, out_date: out_date, in_date: in_date, fine: fine}, $push: {booklist: booklist}})
+    const { booklist } = req.body
+    Transaction.findOneAndUpdate({_id: ObjectId(req.params.id)}, {$push: {booklist: booklist}})
     .then(() => {
         res.status(201).json({
             msg: `data succesfully updated`
@@ -73,5 +73,6 @@ const updateTransaction = (req,res) => {
 module.exports = {
     removeTransaction,
     readTransaction,
-    addTransaction
+    addTransaction,
+    updateTransaction
 }
