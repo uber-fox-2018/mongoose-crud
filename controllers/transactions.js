@@ -26,6 +26,8 @@ module.exports = {
 
   getTransaction: (req, res) => {
     Transaction.find({})
+      .populate('member', 'name')
+      .populate('bookList', 'title')
       .then(allTransaction => {
         res.status(200).json({
           message: "Get all transaction",
