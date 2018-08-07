@@ -1,45 +1,40 @@
-const MongoClient = require('mongodb').MongoClient;
-// Connection URL
-const url = 'mongodb://localhost:27017';
-// Database Name
-const dbName = 'myproject';
+const Book = require('../models/Book')
 
 module.exports = {
     index: (req, res) => {
-
-        // Use connect method to connect to the Server
-        MongoClient.connect(url, function(err, client) {
-            console.log("Connected correctly to server");
-            const db = client.db(dbName);
-
-            db.collection('books').find().toArray(function(err, docs) {
-                res.status(200).json({
-                    "msg": "Success find all books",
-                    "data": docs
-                })
-                client.close();
-            });
-            
-        });
+        Book
+        .find()
+        .then( books => {
+            res.status(200).json({
+                "message": "Success for get books",
+                "data": books
+            })
+        })
+        .catch( err => {
+            res.status(500).json({
+                "message": err.message,
+            })
+        })
+        
                 
     },
 
     show: (req, res) => {
-
-        let isbn = req.params.isbn
-        // Use connect method to connect to the Server
-        MongoClient.connect(url, function(err, client) {
-            const db = client.db(dbName);
+        let id = req.params.id
+        Book
+        .findOne({_id: id})
+        .then( book => {
+            res.status(200).json({
+                "message": "Success for get a book",
+                "data": book
+            })
+        })
+        .catch( err => {
+            res.status(500).json({
+                "message": err.message,
+            })
+        })
         
-            // FindOne a single document
-            db.collection('books').findOne({isbn:isbn}, function(err, record) {       
-                res.status(200).json({
-                    "msg": `Success find book id ${isbn}`,
-                    "data": record
-                })
-                client.close();
-            });
-        }); 
         
     }, 
 
@@ -52,39 +47,42 @@ module.exports = {
             "stock": req.body.stock
         }
 
-        // Use connect method to connect to the Server
-        MongoClient.connect(url, function(err, client) {
-            const db = client.db(dbName);
+        Book
+        .create(newBook)
+        .then( book => {
+            res.status(200).json({
+                "message": "Success for add a book",
+            })
+        })
+        .catch( err => {
+            res.status(500).json({
+                "message": err.message,
+            })
+        })
+
         
-            // Insert a single document
-            db.collection('books').insertOne(newBook, function(err, record) {       
-                res.status(201).json({
-                    "msg": "Success for add new book"
-                }) 
-                client.close();
-            });
-        });
 
     }, 
 
     delete: (req, res) => {
-        let isbn = req.params.isbn
-        // Use connect method to connect to the Server
-        MongoClient.connect(url, function(err, client) {
-            const db = client.db(dbName);
-        
-            // Delete a single document
-            db.collection('books').deleteOne({isbn:isbn}, function(err, record) {       
-                res.status(201).json({
-                    "msg": "Success delete a book",
-                }) 
-                client.close();
-            });
-        });        
+        let id = req.params.id
+        Book
+        .deleteOne({_id:id})
+        .then( book => {
+            res.status(200).json({
+                "message": `Success for delete id: ${id}`
+            })
+        })
+        .catch( err => {
+            res.status(500).json({
+                "message": err.message
+            })
+        })
+                
     }, 
 
     update: (req, res) => {
-        let isbn = req.params.isbn
+        let id = req.params.id
         let aBook = {
             "isbn": req.body.isbn,
             "title": req.body.title,
@@ -93,18 +91,20 @@ module.exports = {
             "stock": req.body.stock
         }
 
-        // Use connect method to connect to the Server
-        MongoClient.connect(url, function(err, client) {
-            const db = client.db(dbName);
+        Book
+        .updateOne({id:id}, aBook)
+        .then( book => {
+            res.status(200).json({
+                "message": "Success for update a book"
+            })
+        })
+        .catch( err => {
+            res.status(500).json({
+                "message": err.message,
+            })
+        })
+
         
-            // Insert a single document
-            db.collection('books').updateOne({isbn:isbn}, {$set: aBook} ,function(err, record) {       
-                res.status(201).json({
-                    "msg": "Success for update a book"
-                }) 
-                client.close();
-            });
-        });
         
     }
      
