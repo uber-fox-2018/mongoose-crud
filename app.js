@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 
 var bookRoutes = require('./routes/book')
 var customerRoutes = require('./routes/customer')
+var transactionRoutes = require('./routes/transaction')
 var db = mongoose.connection
 
 mongoose.connect('mongodb://localhost:27017/mongoose_crud', { useNewUrlParser: true })
@@ -14,11 +15,9 @@ db.once('open', function() {
 
 app.use(express.urlencoded({ extended: false }));
 
-// app.use('/', (req, res) => {
-//     res.send('Mongoose CRUD')
-// })
 app.use('/book', bookRoutes)
 app.use('/customer', customerRoutes)
+app.use('/transaction', transactionRoutes)
 
 app.listen(3030, () => {
     console.log('app listening on port 3030!')

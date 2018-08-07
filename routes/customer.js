@@ -1,5 +1,10 @@
 const router = require('express').Router()
-const {insertCustomer, deleteCustomer, updateCustomer, getCustomer} = require('../controllers/customer_controller')
+const {
+    insertCustomer, 
+    deleteCustomer, 
+    updateCustomer, 
+    getCustomer
+} = require('../controllers/customer_controller')
 
 router.get('/', getCustomer)
 router.post('/', insertCustomer)

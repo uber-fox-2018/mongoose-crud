@@ -1,5 +1,10 @@
 const router = require('express').Router()
-const {insertBook, deleteBook, updateBook, getBook} = require('../controllers/book_controller')
+const {
+    insertBook, 
+    deleteBook, 
+    updateBook, 
+    getBook
+} = require('../controllers/book_controller')
 
 router.get('/', getBook)
 router.post('/', insertBook)
