@@ -1,13 +1,13 @@
-const Book = require('../models/Book')
+const Customer = require('../models/Customer')
 
 module.exports = {
     index: (req, res) => {
-        Book
+        Customer
         .find()
-        .then( books => {
+        .then( customers => {
             res.status(200).json({
-                "message": "Success for get books",
-                "data": books
+                "message": "Success for get customers",
+                "data": customers
             })
         })
         .catch( err => {
@@ -21,12 +21,12 @@ module.exports = {
 
     show: (req, res) => {
         let id = req.params.id
-        Book
+        Customer
         .findOne({_id: id})
-        .then( book => {
+        .then( customer => {
             res.status(200).json({
-                "message": "Success for get a book",
-                "data": book
+                "message": "Success for get a customer",
+                "data": customer
             })
         })
         .catch( err => {
@@ -39,19 +39,19 @@ module.exports = {
     }, 
 
     create: (req, res) => {
-        let newBook = {
-            "isbn": req.body.isbn,
-            "title": req.body.title,
-            "author": req.body.author,
-            "category": req.body.category,
-            "stock": req.body.stock
+        let newcustomer = {
+            "name": req.body.name,
+            "memberid": req.body.memberid,
+            "address": req.body.address,
+            "zipcode": req.body.zipcode,
+            "phone": req.body.phone
         }
 
-        Book
-        .create(newBook)
-        .then( book => {
+        Customer
+        .create(newcustomer)
+        .then( customer => {
             res.status(200).json({
-                "message": "Success for add a book",
+                "message": "Success for add a customer",
             })
         })
         .catch( err => {
@@ -66,9 +66,9 @@ module.exports = {
 
     delete: (req, res) => {
         let id = req.params.id
-        Book
+        Customer
         .deleteOne({_id:id})
-        .then( book => {
+        .then( customer => {
             res.status(200).json({
                 "message": `Success for delete id: ${id}`
             })
@@ -83,19 +83,19 @@ module.exports = {
 
     update: (req, res) => {
         let id = req.params.id
-        let aBook = {
-            "isbn": req.body.isbn,
-            "title": req.body.title,
-            "author": req.body.author,
-            "category": req.body.category,
-            "stock": req.body.stock
+        let acustomer = {
+            "name": req.body.name,
+            "memberid": req.body.memberid,
+            "address": req.body.address,
+            "zipcode": req.body.zipcode,
+            "phone": req.body.phone
         }
 
-        Book
-        .updateOne({_id:id}, aBook)
-        .then( book => {
+        Customer
+        .updateOne({_id:id}, acustomer)
+        .then( customer => {
             res.status(200).json({
-                "message": "Success for update a book"
+                "message": "Success for update a customer"
             })
         })
         .catch( err => {

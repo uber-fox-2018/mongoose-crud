@@ -3,8 +3,7 @@ const Schema = mongoose.Schema
 
 const transactionSchema = new Schema({
     member: {
-        type: String,
-        required: true
+        type:mongoose.Schema.Types.ObjectId, ref:'Customer'
     }, 
     days: {
         type: Number
@@ -21,9 +20,7 @@ const transactionSchema = new Schema({
     fine: {
         type: Number
     }, 
-    booklist: {
-        type: Array
-    }
+    booklist: [{type:mongoose.Schema.Types.ObjectId, ref:'Book'}]
 }, 
 { timestamps: true })
 

@@ -8,7 +8,8 @@ const customerSchema = new Schema({
     }, 
     memberid: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     address: {
         type: String
