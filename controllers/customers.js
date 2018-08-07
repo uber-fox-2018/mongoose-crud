@@ -7,7 +7,7 @@ module.exports = {
       memberId: req.body.memberId,
       address: req.body.address,
       zipcode: req.body.zipcode,
-      phone: req.body.phone
+      phone: req.body.phone,
     })
       .then(newCustomer => {
         res.status(200).json({

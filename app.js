@@ -12,8 +12,10 @@ db.once('open', () => {
   console.log('Connected database')
 })
 
-var indexRouter = require('./routes/index');
-var booksRouter = require('./routes/books');
+const indexRouter = require('./routes/index');
+const booksRouter = require('./routes/books');
+const customerRouter = require('./routes/customers')
+const transactionRoute = require('./routes/transaction')
 
 var app = express();
 
@@ -25,6 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api', booksRouter);
+app.use('/api', customerRouter)
+app.use('/api', transactionRoute)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
