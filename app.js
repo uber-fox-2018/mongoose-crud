@@ -7,7 +7,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose')
 
 //mongodb://localhost:27017/library
-mongoose.connect('mongodb://root:ari112233@ds215172.mlab.com:15172/library', { useNewUrlParser: true })
+mongoose.connect(process.env.MONGO_URI || 'mongodb://root:ari112233@ds215172.mlab.com:15172/library', { useNewUrlParser: true })
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error'))
 db.once('open', () => {
