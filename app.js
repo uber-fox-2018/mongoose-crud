@@ -10,6 +10,7 @@ const port = process.env.PORT || 3000
 // Include Router
 const BookRouter = require('./routes/BookRouter')
 const CustomerRouter = require('./routes/CustomerRouter')
+const TransactionRouter = require('./routes/TransactionRouter')
 
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
@@ -27,6 +28,7 @@ app.get('/', function(req, res) {
 
 app.use('/api/books', BookRouter)
 app.use('/api/customers', CustomerRouter)
+app.use('/api/transactions', TransactionRouter)
 
 app.listen(port, () => {
     console.log(`Server is running with port: ${port}`)
