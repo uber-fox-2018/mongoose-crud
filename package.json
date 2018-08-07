@@ -1,0 +1,26 @@
+{
+  "name": "mongoose-crud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Asrul Harahap",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.16.3",
+    "mongodb": "^3.1.1",
+    "mongoose": "^5.2.7"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/talkasrul/mongoose-crud.git"
+  },
+  "bugs": {
+    "url": "https://github.com/talkasrul/mongoose-crud/issues"
+  },
+  "homepage": "https://github.com/talkasrul/mongoose-crud#readme"
+}
