@@ -30,15 +30,15 @@ const transactionSchema = new mongoose.Schema({
 }, {timestamps:true});
 
 transactionSchema.pre('update', function(next){
-    let updatedItem = this.getUpdate()    
+    let updatedItem = this.getUpdate()   
     if(updatedItem.in_date){
         this.update({}, {fine:getFine(updatedItem.due_date, updatedItem.in_date)})
-        
     } 
     next()
 });
 
 
 const Transaction = mongoose.model('Transaction', transactionSchema);
+
 
 module.exports = Transaction;

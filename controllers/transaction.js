@@ -1,4 +1,5 @@
 const Transaction = require('../models/Transaction');
+const filterBody = require('../helpers/filterBody')
 
 module.exports = {
     add : (req,res)=>{
@@ -39,11 +40,15 @@ module.exports = {
     }, 
     
     update: (req,res)=>{
-        Transaction.findOneAndUpdate({_id: req.params.id}, req.body, {new: true})
+        let allowedData = filterBody(req.body, ['member', 'days', 'out_date', 'due_date', 'booklist'])
+       
+        Transaction.findOneAndUpdate({_id: req.params.id}, allowedData, {new: true})
             .then(updatedTransaction=>{
+                console.log({updatedTransaction})
                 res.status(200).json(updatedTransaction)
             })
             .catch(err=>{
+                console.log(err)
                 res.status(500).json({msg:err})
             })
     },
@@ -52,7 +57,7 @@ module.exports = {
         Transaction.findOne({_id:req.params.id})
             .then(transaction=>{ 
                 transaction.update({
-                    in_date: transaction.in_date,
+                    in_date: new Date(req.body.in_date),
                     due_date: transaction.due_date
                 }).then(()=>{
                     res.status(201).json({
@@ -60,6 +65,7 @@ module.exports = {
                     })
                 })
                 .catch(err=>{
+                    console.log(err)
                     res.status(500).json({msg:err})
                 })
             })
