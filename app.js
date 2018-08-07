@@ -1,26 +1,30 @@
 var createError = require('http-errors');
-var express = require('express');;
+var express = require('express');
+var path = require('path');
 var logger = require('morgan');
+var mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost:27017/libraryMongoose', { useNewUrlParser: true })
+var db = mongoose.connection
+db.on('error', console.error.bind(console, 'connection error'))
+db.once('oper', function(){
+  res.send('we are connected')
+})
 
-var indexRouter = require('./routes/index');
-var booksRouter = require('./routes/book');
-var customersRouter = require('./routes/customer');
-var transactionsRouter = require('./routes/transaction');
 
+var bookRouter = require('./routes/books');
+var customerRouter = require('./routes/customers');
+var transactionRouter = require('./routes/transactions')
 
 var app = express();
-
-// view engine setup
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/books', booksRouter);
-app.use('/customers', customersRouter);
-app.use('/transactions', transactionsRouter);
-
+app.use('/', bookRouter);
+app.use('/', customerRouter);
+app.use('/', transactionRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
