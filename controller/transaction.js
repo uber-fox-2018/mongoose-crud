@@ -30,7 +30,7 @@ module.exports = {
   },
 
   all_transaction: (req, res) => {
-    Transaction.find()
+    Transaction.find().populate('member').populate('booklist')
       .then(found => {
         res.status(200).json({ msg: "Transactions available", found });
       })
