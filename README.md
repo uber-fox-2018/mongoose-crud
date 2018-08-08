@@ -20,6 +20,7 @@ List of routes customers
 | /api/customers/:id | DELETE | Delete customers |
 
 List of routes transactions
+
 | **Route** | **HTTP** | **Description** |
 |-------|------|-------------|
 | /api/transactions | POST | Create new transactions |
