@@ -80,13 +80,15 @@ module.exports = {
                     in_date: req.body.in_date,
                     fine: req.body.fine,
                     booklist:[]
-                    }
-            })
+                    },
+                },{
+                    $push:{booklist:req.body.booklist}
+                })
 
             .then(transaction  => {
                 res.status(200).json({
-                    msg:'update success',
-                    data: transaction 
+                    msg:'Transaction id = ${req.params.id}',
+                    data: found
                 })
             })
 
@@ -106,7 +108,7 @@ module.exports = {
 
             .then(transaction => {
                 res.status(200).json({
-                    msg: 'delete success',
+                    msg: 'Transaction id = ${mongoose.Types.ObjectId(req.params.id)} deleted',
                     data: transaction 
 
                 })
