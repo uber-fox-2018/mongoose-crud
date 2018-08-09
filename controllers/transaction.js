@@ -4,9 +4,10 @@ const Model = require('../models/Transaction')
 function add(req, res) {
     let { member, days, out_date, due_date, in_date, fine, booklist } = req.body
     console.log(booklist.length);
-    if(typeof booklist === string){
-        
-
+    if(typeof booklist === String){
+        booklist = [booklist]
+    }else{
+        booklist = booklist
     }
     Model.create({
         member: member,
@@ -15,7 +16,7 @@ function add(req, res) {
         due_date: due_date,
         in_date: in_date,
         fine: fine,
-        booklist: [booklist]
+        booklist: booklist
     })
         .then(function (data) {
             res.status(201).json({ msg: 'new transaction added', data: data })
@@ -27,6 +28,8 @@ function add(req, res) {
 
 function readAll(req, res) {
     Model.find({})
+    .populate('member','name')
+    .populate('booklist')
         .then(function (data) {
             res.status(200).json({ msg: 'data found', data: data })
         })
